@@ -1,26 +1,20 @@
+from utils import *
 import requests
 import bs4
 import pandas as pd
-import datetime
+import datetime as dt
 from dateutil.relativedelta import relativedelta
-
-dt = datetime
 
 
 existingDf = pd.read_excel(io="weather-data.xlsx", sheet_name="Sheet1")
-lastDayStr = existingDf["date"].iloc[-1]
 
+lastDayStr = existingDf["date"].iloc[-1]
 firstDayDate = dt.datetime.strptime(lastDayStr, "%d.%m.%Y") + dt.timedelta(days=1)
 todayDate = dt.date.today()
 
-firstMonthStr = "01." + "{:%m.%Y}".format(firstDayDate)
-presentMonthStr = "01." + "{:%m.%Y}".format(todayDate)
-firstMonthDate = dt.datetime.strptime(firstMonthStr, "%d.%m.%Y")
-presentMonthDate = dt.datetime.strptime(presentMonthStr, "%d.%m.%Y")
-
-dateDictKeys = ["day", "month", "year"]
-firstDayToAdd = (firstDayDate.strftime("%d.%m.%Y")).split(".")
-firstDayToAdd = {key: firstDayToAdd[i] for i, key in enumerate(dateDictKeys)}
+firstMonthDate = formatDateForReq(firstDayDate)
+presentMonthDate = formatDateForReq(todayDate)
+firstDayDict = dateToDict(firstDayDate)
 
 dataPointKeys = [
     "date",
@@ -37,11 +31,9 @@ data = {key: [] for key in dataPointKeys}
 
 monthDate = firstMonthDate
 while monthDate <= presentMonthDate:
-    monthToAdd = (monthDate.strftime("%d.%m.%Y")).split(".")
-    monthToAdd = {key: monthToAdd[i] for i, key in enumerate(dateDictKeys)}
-
+    monthDict = dateToDict(monthDate)
     url = "https://freemeteo.ro/vremea/bucuroaia/istoric/istoric-lunar/?gid=683499&station=4621&month={}&year={}&language=romanian&country=romania".format(
-        monthToAdd["month"], monthToAdd["year"]
+        monthDict["month"], monthDict["year"]
     )
     response = requests.get(url)
 
@@ -50,7 +42,7 @@ while monthDate <= presentMonthDate:
         dailySoup = soup.find_all(
             lambda tag: tag.name == "tr"
             and "data-day" in tag.attrs
-            and int(tag["data-day"]) > int(firstDayToAdd["day"]) - 1
+            and int(tag["data-day"]) > int(firstDayDict["day"]) - 1
         )
     else:
         dailySoup = soup.find_all("tr", attrs={"data-day": True})
