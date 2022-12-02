@@ -1,11 +1,10 @@
 # weather-scraping
 
-This repo contains code for a python weather web scraper app I made for my dad.
+This repo contains code for a python weather web scraper I made for my dad.
 
 He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
-## Features
+## What does it do?
 
-- date picker GUI
-- extracts weather data from [freemeteo.ro](https://freemeteo.ro/vremea)
+- extracts weather data from [freemeteo.ro](https://freemeteo.ro)
 - exports the data into Excel
