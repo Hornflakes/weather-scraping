@@ -1,3 +1,4 @@
+from conf import *
 from utils import *
 import requests
 import bs4
@@ -6,9 +7,12 @@ import datetime as dt
 from dateutil.relativedelta import relativedelta
 
 
-existingDf = pd.read_excel(io="weather-data.xlsx", sheet_name="Sheet1")
+existingDf = pd.read_excel(io=EXCEL_FILE_NAME, sheet_name=EXCEL_SHEET_NAME)
 
-lastDayStr = existingDf["date"].iloc[-1]
+dateCol = existingDf.columns[DATE_COL_EXCEL_INDEX]
+lastDayRow = existingDf[dateCol].last_valid_index()
+
+lastDayStr = existingDf[dateCol][lastDayRow]
 firstDayDate = dt.datetime.strptime(lastDayStr, "%d.%m.%Y") + dt.timedelta(days=1)
 todayDate = dt.date.today()
 
@@ -24,7 +28,6 @@ dataPointKeys = [
     "maxGustWind",
     "rainfall",
     "snowDepth",
-    "barometricPressure",
     "description",
 ]
 data = {key: [] for key in dataPointKeys}
@@ -49,25 +52,35 @@ while monthDate <= presentMonthDate:
 
     for daySoup in dailySoup:
         data["date"].append(daySoup.find_all("td")[0].string)
-        data["minTemperature"].append(daySoup.find_all("td")[1].string)
-        data["maxTemperature"].append(daySoup.find_all("td")[2].string)
         data["maxSustainedWind"].append(daySoup.find_all("td")[3].string)
         data["maxGustWind"].append(daySoup.find_all("td")[4].string)
         data["rainfall"].append(daySoup.find_all("td")[5].string)
         data["snowDepth"].append(daySoup.find_all("td")[6].string)
-        data["barometricPressure"].append(daySoup.find_all("td")[7].string)
         data["description"].append(daySoup.find_all("td")[9].contents[0])
+
+        minTemperature = daySoup.find_all("td")[1].string
+        if minTemperature[0] == "-":
+            data["minTemperature"].append(minTemperature + "'")
+        else:
+            data["minTemperature"].append(minTemperature)
+
+        maxTemperature = daySoup.find_all("td")[2].string
+        if maxTemperature[0] == "-":
+            data["maxTemperature"].append(maxTemperature + "'")
+        else:
+            data["maxTemperature"].append(maxTemperature)
 
     monthDate = monthDate + relativedelta(months=+1)
 
 with pd.ExcelWriter(
-    "weather-data.xlsx", engine="openpyxl", mode="a", if_sheet_exists="overlay"
+    EXCEL_FILE_NAME, engine="openpyxl", mode="a", if_sheet_exists="overlay"
 ) as xlWriter:
     df = pd.DataFrame(data)
     df.to_excel(
         excel_writer=xlWriter,
-        sheet_name="Sheet1",
+        sheet_name=EXCEL_SHEET_NAME,
         index=False,
         header=False,
-        startrow=len(existingDf.index) + 1,
+        startcol=DATE_COL_EXCEL_INDEX,
+        startrow=lastDayRow + 2,
     )
