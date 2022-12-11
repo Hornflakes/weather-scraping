@@ -23,7 +23,10 @@ He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
    or copy what's inside the `dist` folder
 
-2. create your excel at the same level
+2. replace `weather_data.xlsx` with your own excel
+
+   or use it (skip the next 2 steps)
+
 3. add the date (dd.mm.yyyy) after which you want to get data
 4. update `config.xlsx`
 
