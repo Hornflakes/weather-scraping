@@ -1,6 +1,6 @@
 # weather-scraping
 
-This repo contains a weather web scraping python script(code and .exe) I made for my dad.
+This repo contains a weather web scraping python script (code and .exe) I made for my dad.
 
 He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
@@ -18,12 +18,12 @@ He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 **User:**
 
 1. copy what's inside the `dist` folder
-2. create your excel file
+2. create your excel at the same level
 3. update `config.xlsx`
 
    - your excel name
    - your sheet name
-   - the index of the first(date) column: `column number - 1`
+   - the index of the first (date) column: `column number - 1`
 
      [Column letter to number converter](https://www.vishalon.net/blog/excel-column-letter-to-number-quick-reference)
 
