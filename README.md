@@ -13,7 +13,9 @@ He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
 **Dev:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `pip install -r reqs.txt`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Install packages:** `pip install -r reqs.txt`
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Compile to .exe:** `pyinstaller --onefile weather_script.py`
 
 **User:**
 
