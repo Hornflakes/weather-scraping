@@ -17,9 +17,13 @@ He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
 **User:**
 
-1. copy what's inside the `dist` folder
+1. download `Weather_Scraping.zip` from **Releases**
+
+   or copy what's inside the `dist` folder
+
 2. create your excel at the same level
-3. update `config.xlsx`
+3. add the date (dd.mm.yyyy) after which you want to get data
+4. update `config.xlsx`
 
    - your excel name
    - your sheet name
@@ -27,5 +31,5 @@ He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
      [Column letter to number converter](https://www.vishalon.net/blog/excel-column-letter-to-number-quick-reference)
 
-4. run `weather_script.exe` and wait for the console window to close
-5. PROFIT 📈📈📈
+5. run `weather_script.exe` and wait for the console window to close
+6. PROFIT 📈📈📈
