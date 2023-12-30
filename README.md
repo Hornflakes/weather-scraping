@@ -1,12 +1,10 @@
 # weather-scraping
 
-This repo contains a weather web scraping python script (code and .exe) I made for my dad.
+This repo contains a weather web scraping python script (code and .bat) I made for my dad.
 
 He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
-[Newer, blazingly™ fast C++ version 🔥](https://github.com/Hornflakes/fast-weather-scraping)
-
-\* the slowness of the executable is caused by using pyinstaller with the `--onefile` flag, which although bundles everything into one file, has to unpack all the dependencies and the python runtime before running
+[C++ version 🔥](https://github.com/Hornflakes/fast-weather-scraping)
 
 ## What does it do?
 
@@ -17,9 +15,11 @@ He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
 **Dev:**
 
+Make sure the excel files are in the same folder from which you run the script (be it .py or .bat).
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Install packages:** `pip install -r reqs.txt`
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Compile to .exe:** `pyinstaller --onefile weather_script.py`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Compile to .exe:** `pyinstaller weather_script.py`
 
 **User:**
 
@@ -40,5 +40,11 @@ He records and analyzes weather data for our orchard. 🍇🌳🍐🍑🍎🍒
 
         [Column letter to number converter](https://www.vishalon.net/blog/excel-column-letter-to-number-quick-reference)
 
-5. run `weather_script.exe` and wait for the console window to close
+5. run `weather_script.bat` and wait for the console window to close
 6. PROFIT 📈📈📈
+
+#
+
+The CA certificate for the data request can expire. In that case, you can replace it.
+
+The certificate is `app/certifi/cacert.pem`. [You can download certificates here.](https://curl.se/docs/caextract.html)
